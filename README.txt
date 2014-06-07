@@ -1,6 +1,10 @@
 mobile-web-app
 基于jquerymobile,spring webmvc实现的移动web开发框架
 
+Requirements:
+  * JDK 1.6.*
+  * Maven 3.*
+  
 How to build:
 	Clone this Git repository. 
 	
