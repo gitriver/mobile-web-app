@@ -30,7 +30,7 @@
 				jQuery.ajax({
 					type : 'GET',
 					contentType : 'application/json',
-					url : '/webframe/demo/list',
+					url : '/mobile/demo/list',
 					dataType : 'json',
 					success : function(data) {
 						if (data && data.success == "true") {
@@ -54,7 +54,7 @@
 							jQuery.ajax({
 								type : 'POST',
 								contentType : 'application/json',
-								url : '/webframe/demo/add',
+								url : '/mobile/demo/add',
 								data : jsonuserinfo,
 								dataType : 'json',
 								success : function(data) {
@@ -71,7 +71,7 @@
 	function Demo() {
 		jQuery.ajax({
 			type : "POST",
-			url : "/webframe/demo/assign", //相对路径写法user/assign
+			url : "/mobile/demo/assign", //相对路径写法user/assign
 			data : {
 				userId : 2,
 				'add[]' : [ 1, 2, 3 ],

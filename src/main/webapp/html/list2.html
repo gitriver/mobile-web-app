@@ -16,7 +16,7 @@
 				jQuery.ajax({
 					type : 'GET',
 					contentType : 'application/json',
-					url : '/webframe/accounts/list',
+					url : '/mobile/accounts/list',
 					dataType : 'json',
 					success : function(data) {
 						$.each(data, function(i, item) {
@@ -27,7 +27,6 @@
 									+item.address+'</p></a></li>'
 								);
 						});
-						alert($('#list').html());
 					},
 					error : function(XMLHttpRequest, textStatus, errorThrown) {
 						alert(textStatus);
