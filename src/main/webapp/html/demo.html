@@ -1,0 +1,101 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="../static/images/favicon.ico">
+<link rel="stylesheet" href="../static/css/themes/default/jquery.mobile-1.4.2.min.css">
+<script src="../static/js/jquery.js"></script>
+<script src="../static/js/jquery.json-2.4.min.js"></script>
+<script src="../static/js/jquery.mobile-1.4.2.min.js"></script>
+
+<script type="text/javascript">
+	$.fn.serializeObject = function() {
+		var o = {};
+		var a = this.serializeArray();
+		$.each(a, function() {
+			if (o[this.name]) {
+				if (!o[this.name].push) {
+					o[this.name] = [ o[this.name] ];
+				}
+				o[this.name].push(this.value || '');
+			} else {
+				o[this.name] = this.value || '';
+			}
+		});
+		return o;
+	};
+
+	$(document).ready(
+			function() {
+				jQuery.ajax({
+					type : 'GET',
+					contentType : 'application/json',
+					url : '/webframe/demo/list',
+					dataType : 'json',
+					success : function(data) {
+						if (data && data.success == "true") {
+							$('#info').html("总共 " + data.total + " 条数据<br/>");
+							$.each(data.data, function(i, item) {
+								$('#info').append(
+										"code:" + item.id + "    name:"
+												+ item.name + "    age:"
+												+ item.address + "<br/>");
+							});
+						}
+					},
+					error : function(XMLHttpRequest, textStatus, errorThrown) {
+						alert(textStatus);
+					}
+				});
+				$("#submit").click(
+						function() {
+							var jsonuserinfo = $.toJSON($('#form')
+									.serializeObject());
+							jQuery.ajax({
+								type : 'POST',
+								contentType : 'application/json',
+								url : '/webframe/demo/add',
+								data : jsonuserinfo,
+								dataType : 'json',
+								success : function(data) {
+									alert("add succuss");
+								},
+								error : function(XMLHttpRequest, textStatus,
+										errorThrown) {
+									alert(textStatus);
+								}
+							});
+						});
+			});
+
+	function Demo() {
+		jQuery.ajax({
+			type : "POST",
+			url : "/webframe/demo/assign", //相对路径写法user/assign
+			data : {
+				userId : 2,
+				'add[]' : [ 1, 2, 3 ],
+				'del[]' : [ 4 ]
+			},
+			success : function(data) {
+				alert("assign succuss");
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				alert(textStatus);
+			}
+		});
+	};
+</script>
+</head>
+<body>
+	<div id="info"></div>
+	<form action="/webframe/demo/add" method="post" id="form">
+		编号:<input type="text" name="id" /> 姓名:<input type="text"
+			name="name" /> 住址:<input type="text" name="address" /> <input
+			type="button" value="submit" id="submit" />
+	</form>
+	<ul>
+		<li><a href="#" onclick="Demo()">Demo</a></li>
+	</ul>
+</body>
+</html>

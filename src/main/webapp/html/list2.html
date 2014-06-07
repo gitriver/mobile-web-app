@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no"
+	name="viewport" id="viewport" />
+<link rel="shortcut icon" href="../static/images/favicon.ico">
+<link rel="stylesheet"
+	href="../static/css/themes/default/jquery.mobile-1.4.2.min.css">
+<script src="../static/js/jquery.js"></script>
+<script src="../static/js/jquery.mobile-1.4.2.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				jQuery.ajax({
+					type : 'GET',
+					contentType : 'application/json',
+					url : '/webframe/accounts/list',
+					dataType : 'json',
+					success : function(data) {
+						$.each(data, function(i, item) {
+							$('#list').append(
+									'<li class="ui-li-has-thumb ui-last-child"><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r"> <img src="../static/images/favicon.ico">'
+									+'<h2>'+item.name+'</h2>'
+									+'<p>姓名：'+item.name+' 电话:'+item.telephone+' 地址:'
+									+item.address+'</p></a></li>'
+								);
+						});
+						alert($('#list').html());
+					},
+					error : function(XMLHttpRequest, textStatus, errorThrown) {
+						alert(textStatus);
+					}
+			});	
+		});
+</script>
+</head>
+<body>
+	<div data-role="page" id="pageone">
+		<div data-role="content">
+			<ul data-role="listview" data-inset="true" data-filter="true"
+				data-filter-placeholder="搜索歌手" id="list">
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
