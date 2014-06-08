@@ -47,4 +47,6 @@ public interface AccountRepository {
     void save(Account account) throws DataAccessException;
 
     List<Account> listAccount();
+    
+    List<Account> listAccount2();
 }

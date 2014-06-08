@@ -15,6 +15,7 @@
  */
 package com.catt.mobile.repository.jdbc;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +33,8 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Repository;
 
+import pub.db.JdbcUtils;
+
 import com.catt.mobile.model.Account;
 import com.catt.mobile.repository.AccountRepository;
 
@@ -42,10 +45,12 @@ public class JdbcAccountRepositoryImpl implements AccountRepository {
 
 	private SimpleJdbcInsert insertAccount;
 
+	private DataSource dataSource;
+
 	@Autowired
 	public JdbcAccountRepositoryImpl(DataSource dataSource,
 			NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-
+		this.dataSource = dataSource;
 		this.insertAccount = new SimpleJdbcInsert(dataSource).withTableName(
 				"account").usingGeneratedKeyColumns("id");
 
@@ -103,12 +108,24 @@ public class JdbcAccountRepositoryImpl implements AccountRepository {
 		List<Account> list;
 		try {
 
-			list = this.namedParameterJdbcTemplate
-					.query("SELECT id, name,  address, telephone,email FROM account",
-							ParameterizedBeanPropertyRowMapper
-									.newInstance(Account.class));
+			list = this.namedParameterJdbcTemplate.query(
+					"SELECT id, name,  address, telephone,email FROM account",
+					ParameterizedBeanPropertyRowMapper
+							.newInstance(Account.class));
 		} catch (EmptyResultDataAccessException ex) {
 			throw new ObjectRetrievalFailureException(Account.class, 1);
+		}
+		return list;
+	}
+
+	@Override
+	public List listAccount2() {
+		List<Map<String, Object>> list=null;
+		try {
+			list = JdbcUtils.executeQuery(this.dataSource,
+					"SELECT id, name,  address, telephone,email FROM account");
+		} catch (Exception e) {
+
 		}
 		return list;
 	}

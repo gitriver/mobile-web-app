@@ -158,5 +158,12 @@ public class AccountController {
 		List list=this.mobileService.listAccount();
 		return list;
 	}
+	
+	@RequestMapping(value = "/accounts/list2", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> listAccount2() {
+		List list=this.mobileService.listAccount2();
+		return list;
+	}
 
 }

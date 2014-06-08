@@ -61,4 +61,10 @@ public class MobileServiceImpl implements MobileService {
     public List<Account> listAccount(){
     	return this.accountRepository.listAccount();
     }
+    
+    @Override
+    @Transactional
+    public List<Account> listAccount2(){
+    	return this.accountRepository.listAccount2();
+    }
 }

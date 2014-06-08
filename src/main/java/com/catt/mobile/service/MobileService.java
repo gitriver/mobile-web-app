@@ -31,5 +31,7 @@ public interface MobileService {
     Collection<Account> findAccountByName(String name) throws DataAccessException;
     
     List<Account> listAccount();
+    
+    List<Account> listAccount2();
 
 }
