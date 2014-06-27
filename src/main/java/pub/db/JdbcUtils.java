@@ -24,12 +24,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.catt.mobile.util.HexBin;
-import com.catt.mobile.web.DemoController;
 
 
 public final class JdbcUtils {
 
-	private final static Logger LOG = LoggerFactory.getLogger(DemoController.class);
+	private final static Logger LOG = LoggerFactory.getLogger(JdbcUtils.class);
 
     public final static void close(Connection x) {
         if (x != null) {
